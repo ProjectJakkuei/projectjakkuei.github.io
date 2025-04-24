@@ -47,12 +47,68 @@
       100% { opacity: 1; transform: translateY(-2rem); }
     }
 
-    /* Tron-style glow for loader text */
+    /* Tron-style glow for loader text with staggered streak animation */
     #loader span {
       color: #00f7ff;
       font-family: 'Orbitron', sans-serif;
       letter-spacing: 0.1em;
       text-shadow: 0 0 10px #00f7ff, 0 0 20px #00f7ff, 0 0 40px #00f7ff;
+      opacity: 0;
+      position: relative;
+    }
+    
+    /* Light streak trail effect */
+    #loader span::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(to right, #00f7ff 0%, transparent 100%);
+      opacity: 0.4;
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: trailSwipe 1s ease forwards;
+    }
+    
+    /* Staggered entry for Project */
+    #loader span:first-child {
+      animation: slideIn 1s ease forwards;
+      animation-delay: 0.5s;
+    }
+    #loader span:first-child::after {
+      animation-delay: 0.5s;
+    }
+    
+    /* Staggered entry for Jakkuei */
+    #loader span:last-child {
+      animation: slideIn 1s ease forwards;
+      animation-delay: 1.5s;
+    }
+    #loader span:last-child::after {
+      animation-delay: 1.5s;
+    }
+    @keyframes slideIn {
+      0% {
+        transform: translateX(-100vw);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes trailSwipe {
+      0% {
+        transform: scaleX(0);
+        opacity: 0.4;
+      }
+      100% {
+        transform: scaleX(1);
+        opacity: 0;
+      }
     }
 
     /* Page layout */
