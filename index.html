@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Basic meta settings and fonts -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Project Jakkuei</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
+    /* Global reset and font settings */
+    * { box-sizing: border-box; }
     body, html {
       margin: 0;
       padding: 0;
@@ -18,77 +18,44 @@
       text-align: center;
     }
 
+    /* Loading screen */
     #loader {
-      position: fixed;
-      top: 0;
+      position: absolute;
+      top: 20%;
       left: 0;
       width: 100%;
-      height: 100%;
-      background: #0d0d0d;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
-      z-index: 9999;
-      overflow: hidden;
-    }
-
-    #loader span {
-      display: block;
-      opacity: 0;
-      color: #00f7ff;
-      font-family: 'Orbitron', sans-serif;
-      letter-spacing: 0.1em;
-      animation: slideInFromLeft 1s forwards, glowTrail 2s infinite alternate ease-in-out;
-    }
-
-    #loader span:nth-child(2) {
-      animation-delay: 1s, 1s;
-    }
-
-    @keyframes slideInFromLeft {
-      0% {
-        opacity: 0;
-        transform: translateX(-100vw);
-      }
-      100% {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @keyframes glowTrail {
-      from {
-        text-shadow: 0 0 10px #00f7ff, 0 0 20px #00f7ff, 0 0 40px #00f7ff;
-      }
-      to {
-        text-shadow: 0 0 20px #00f7ff, 0 0 30px #00f7ff, 0 0 60px #00f7ff;
-      }
-    }
-
-    #loader.hidden {
-      animation: none;
-      visibility: hidden;
-    }
-
-    #header {
       font-size: 2.5rem;
-      margin-bottom: 0.5rem;
+      z-index: 1;
+      transition: all 1s ease;
+    }
+
+    /* Transition loader to header position */
+    #loader.hide-and-transform {
+      top: 0;
+      position: static;
+      font-size: 2.5rem;
+      animation: moveToHeader 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    }
+
+    /* Header animation */
+    @keyframes moveToHeader {
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 1; transform: translateY(-2rem); }
+    }
+
+    /* Tron-style glow for loader text */
+    #loader span {
       color: #00f7ff;
       font-family: 'Orbitron', sans-serif;
       letter-spacing: 0.1em;
       text-shadow: 0 0 10px #00f7ff, 0 0 20px #00f7ff, 0 0 40px #00f7ff;
-      opacity: 0;
-      transform: scale(0.8);
-      transition: all 1s ease;
     }
 
-    #header.visible {
-      opacity: 1;
-      transform: scale(1);
-    }
-
+    /* Page layout */
     main {
       min-height: 100vh;
       display: flex;
@@ -98,6 +65,7 @@
       padding: 2rem 1rem;
     }
 
+    /* Tagline animation */
     p {
       font-size: 1.2rem;
       margin-bottom: 2rem;
@@ -105,16 +73,13 @@
       opacity: 0;
       transform: translateY(-20px);
       animation: paragraphFadeIn 1s ease forwards;
-      animation-delay: 2.5s;
+      animation-delay: 3s;
     }
-
     @keyframes paragraphFadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Button group animation */
     .button-group {
       display: flex;
       flex-direction: column;
@@ -124,20 +89,14 @@
       opacity: 0;
       transform: translateY(20px);
       animation: buttonEnter 1.2s ease-out forwards;
-      animation-delay: 2.8s;
+      animation-delay: 3.3s;
     }
-
     @keyframes buttonEnter {
-      0% {
-        opacity: 0;
-        transform: translateY(40px) scale(0.95);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+      0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
     }
 
+    /* Universal button style */
     .button-group a, form button {
       display: block;
       padding: 0.75rem 1.5rem;
@@ -150,25 +109,35 @@
       border: none;
       cursor: pointer;
     }
-
     .button-group a:hover, form button:hover {
       background-color: #00c6d7;
       transform: scale(1.05);
     }
 
+    /* Form header */
+    .contact-header {
+      margin-top: 4rem;
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      color: #00f7ff;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    /* Contact form animation */
     form {
       display: flex;
       flex-direction: column;
       gap: 12px;
-      margin-top: 1rem;
+      margin-top: 0.5rem;
       max-width: 300px;
       width: 100%;
       opacity: 0;
       transform: translateY(20px);
       animation: buttonEnter 1.2s ease-out forwards;
-      animation-delay: 3.2s;
+      animation-delay: 3.7s;
     }
 
+    /* Form field style */
     form input, form textarea {
       padding: 0.75rem;
       border-radius: 6px;
@@ -176,44 +145,47 @@
       font-size: 1rem;
     }
 
+    /* Form status message style */
     #form-status {
       margin-top: 1rem;
       min-height: 1.5rem;
       font-weight: bold;
       transition: all 0.3s ease;
     }
-
     #form-status.success {
       color: #00ff9d;
       text-shadow: 0 0 8px #00ff9d;
     }
-
     #form-status.error {
       color: #ff4f4f;
       text-shadow: 0 0 8px #ff4f4f;
     }
 
+    /* Responsive font scaling */
     @media (min-width: 480px) {
-      #header {
-        font-size: 3rem;
-      }
+      #loader { font-size: 3rem; }
     }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <div id="loader">
-    <span>Project</span>
-    <span>Jakkuei</span>
-  </div>
-
   <main>
-    <h1 id="header">Project Jakkuei</h1>
+    <!-- Loader that transforms into the header -->
+    <div id="loader">
+      <span>Project</span>
+      <span>Jakkuei</span>
+    </div>
+
+    <!-- Tagline -->
     <p>Custom Solutions for Curious Problems</p>
+
+    <!-- Button group for links -->
     <div class="button-group">
       <a href="https://github.com/ProjectJakkuei" target="_blank">Check out my projects!</a>
     </div>
+
+    <!-- Contact header and form -->
+    <h2 class="contact-header">Contact me!</h2>
     <form action="https://formspree.io/f/mnqevlvp" method="POST">
       <input type="text" name="name" placeholder="Your Name" required>
       <input type="email" name="email" placeholder="Your Email" required>
@@ -224,13 +196,14 @@
   </main>
 
   <script>
+    // Animate loader text transition into header position after a short delay
     window.addEventListener("load", () => {
       setTimeout(() => {
-        document.getElementById("loader").classList.add("hidden");
-        document.getElementById("header").classList.add("visible");
-      }, 2000);
+        document.getElementById("loader").classList.add("hide-and-transform");
+      }, 2500);
     });
 
+    // Handle form submission via Formspree
     const form = document.querySelector("form");
     const status = document.getElementById("form-status");
 
@@ -238,6 +211,7 @@
       e.preventDefault();
       status.textContent = "";
       status.className = "";
+
       const data = new FormData(form);
       const response = await fetch(form.action, {
         method: form.method,
