@@ -170,6 +170,27 @@
       transform: scale(1.05);
     }
 
+    .coming-soon {
+      color: #00f7ff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: buttonEnter 1.2s ease-out forwards, pulseGlow 2s ease-in-out infinite;
+      animation-delay: 3.5s, 4.8s;
+      text-shadow: 0 0 8px #00f7ff;
+    }
+    
+    @keyframes pulseGlow {
+      0%, 100% {
+        text-shadow: 0 0 8px #00f7ff;
+      }
+      50% {
+        text-shadow: 0 0 20px #00f7ff, 0 0 40px #00f7ff;
+      }
+    }
+
     /* Form header show up slightly before the form */
     .contact-header {
       margin-top: 4rem;
@@ -242,6 +263,7 @@
     <!-- Button group for links -->
     <div class="button-group">
       <a href="https://github.com/ProjectJakkuei" target="_blank">Check out my projects!</a>
+      <p class="coming-soon">I'm currently working on 2 projects that won't be publicly available on GitHub. Stay tuned!</p>
     </div>
 
     <!-- Contact header and form -->
